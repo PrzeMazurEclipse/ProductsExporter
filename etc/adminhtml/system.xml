@@ -26,6 +26,15 @@
                         <field id="is_active">1</field>
                     </depends>
                 </field>
+                <field id="cron" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Cron schedule</label>
+                    <config_path>yellowcard/general/cron</config_path>
+                    <validate>required-entry</validate>
+                    <comment>Set how often export should run. Check https://crontab.guru/ to find how it works</comment>
+                    <depends>
+                        <field id="is_active">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>
