@@ -24,6 +24,8 @@ class Export extends Action implements HttpGetActionInterface
     }
 
     /**
+     * Triggers export of purchased products from provided orders
+     *
      * @return void
      */
     public function execute(): void
