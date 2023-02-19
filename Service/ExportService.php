@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace YellowCard\ProductsExporter\Service;
 
+use Psr\Log\LoggerInterface;
+
 class ExportService
 {
     /**
-     * @param ProductService $productService
+     * @param ProductService  $productService
+     * @param LoggerInterface $logger
      */
-    public function __construct(private ProductService $productService)
+    public function __construct(private ProductService $productService, private LoggerInterface $logger)
     {
     }
 
@@ -20,12 +23,17 @@ class ExportService
      */
     public function createExport(): void
     {
-        foreach ($this->productService->getProducts() as $product) {
-            foreach ($product as $item) {
-                echo $item->getSku()
-                    . " " . number_format((float)$item->getQtyOrdered(), 2)
-                    . " " . $item->getOrderId() . '</br>';
+        try {
+            foreach ($this->productService->getProducts() as $product) {
+                foreach ($product as $item) {
+                    echo $item->getSku()
+                        . " " . number_format((float)$item->getQtyOrdered(), 2)
+                        . " " . $item->getOrderId() . '</br>';
+                }
             }
+        } catch (\Exception $exception) {
+            $this->logger->critical($exception->getMessage());
         }
+
     }
 }
