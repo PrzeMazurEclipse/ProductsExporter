@@ -8,20 +8,19 @@ use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\ResourceModel\Order\Collection;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
-use Psr\Log\LoggerInterface;
-use YellowCard\ProductsExporter\Enum\LoggerMessages;
+use YellowCard\ProductsExporter\Api\ExportedOrdersRepositoryInterface;
 use YellowCard\ProductsExporter\Model\ExportedOrdersFactory;
 use YellowCard\ProductsExporter\Model\ResourceModel\ExportedOrders as ExportedOrdersResource;
 
 class OrderService
 {
     /**
-     * @param CollectionFactory        $collectionFactory
-     * @param StatusService            $statusService
-     * @param OrderRepositoryInterface $orderRepository
-     * @param ExportedOrdersFactory    $exportedOrdersFactory
-     * @param ExportedOrdersResource   $exportedOrdersResource
-     * @param LoggerInterface          $logger
+     * @param CollectionFactory                 $collectionFactory
+     * @param StatusService                     $statusService
+     * @param OrderRepositoryInterface          $orderRepository
+     * @param ExportedOrdersFactory             $exportedOrdersFactory
+     * @param ExportedOrdersResource            $exportedOrdersResource
+     * @param ExportedOrdersRepositoryInterface $exportedOrdersRepository
      */
     public function __construct(
         private CollectionFactory $collectionFactory,
@@ -29,7 +28,7 @@ class OrderService
         private OrderRepositoryInterface $orderRepository,
         private ExportedOrdersFactory $exportedOrdersFactory,
         private ExportedOrdersResource $exportedOrdersResource,
-        private LoggerInterface $logger
+        private ExportedOrdersRepositoryInterface $exportedOrdersRepository
     ) {
     }
 
@@ -80,11 +79,7 @@ class OrderService
         $exportedOrders->setOrders($stringOfOrderNumbers);
         $exportedOrders->setRaportId(1);
 
-        try{
-            $this->exportedOrdersResource->save($exportedOrders);
-        } catch (\Exception $exception) {
-            $this->logger->critical(LoggerMessages::DB_FAILED->value. " : " .$exception->getMessage());
-        }
+        $this->exportedOrdersRepository->save($exportedOrders);
     }
 
     /**
