@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace YellowCard\ProductsExporter\Model;
 
 use Magento\Framework\Model\AbstractModel;
+use YellowCard\ProductsExporter\Api\Data\ExportedOrdersInterface;
 use YellowCard\ProductsExporter\Model\ResourceModel\ExportedOrders as ExportedOrdersResource;
 
-class ExportedOrders extends AbstractModel
+class ExportedOrders extends AbstractModel implements ExportedOrdersInterface
 {
-    const ORDERS = 'orders';
-    const RAPORT_ID = 'raport_id';
-
     protected function _construct()
     {
         $this->_init(ExportedOrdersResource::class);
@@ -47,5 +45,10 @@ class ExportedOrders extends AbstractModel
     public function setRaportId(int $raport_id): void
     {
         $this->setData(self::RAPORT_ID, $raport_id);
+    }
+
+    public function getCreatedAt()
+    {
+       return $this->getData(self::CREATED_AT);
     }
 }
