@@ -6,12 +6,23 @@ namespace YellowCard\ProductsExporter\Service\Reprocess;
 
 class ReprocessService
 {
+    /**
+     * @param LoadOrdersService $loadOrdersService
+     */
     public function __construct(
-        private readonly LoadOrdersService $loadOrderService
+        private readonly LoadOrdersService $loadOrdersService
     ) {
     }
-    public function Reprocess(array $specificRaport)
+
+    /**
+     * Reprocess export of given order numbers from specific raport
+     *
+     * @param array $specificRaport
+     *
+     * @return void
+     */
+    public function reprocess(array $specificRaport)
     {
-        $orders = $this->loadOrderService->execute($specificRaport);
+        $orders = $this->loadOrdersService->execute($specificRaport);
     }
 }
