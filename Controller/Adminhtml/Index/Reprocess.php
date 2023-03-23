@@ -8,7 +8,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use YellowCard\ProductsExporter\Api\ExportedOrdersRepositoryInterface;
-use YellowCard\ProductsExporter\Service\ReprocessService;
+use YellowCard\ProductsExporter\Service\Reprocess\ReprocessService;
 
 class Reprocess extends Action implements HttpGetActionInterface
 {
@@ -34,6 +34,6 @@ class Reprocess extends Action implements HttpGetActionInterface
     public function execute(): void
     {
         $specificRaport = $this->exportedOrdersRepository->getByRaportId((int)$this->getRequest()->getParam('id'));
-        $this->reprocessService->Reprocess($specificRaport);
+        $this->reprocessService->reprocess($specificRaport);
     }
 }
