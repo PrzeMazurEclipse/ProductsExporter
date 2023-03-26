@@ -6,30 +6,34 @@ namespace YellowCard\ProductsExporter\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\View\Result\Page;
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use YellowCard\ProductsExporter\Service\ExportService;
+use Magento\Framework\View\Result\PageFactory;
 
 class Export extends Action implements HttpGetActionInterface
 {
 
     /**
-     * @param ExportService $exportService
+     * @param PageFactory   $pageFactory
      * @param Context       $context
      */
     public function __construct(
-        private ExportService $exportService,
+        private PageFactory $pageFactory,
         Context $context
     ) {
         parent::__construct($context);
     }
 
     /**
-     * Triggers export of purchased products from provided orders
+     * Triggers export of purchased products from provided orders. For now showing ordered products in admin area
      *
-     * @return void
+     * @return Page
      */
-    public function execute(): void
+    public function execute(): Page
     {
-        $this->exportService->createExport();
+        $page = $this->pageFactory->create();
+        $page->getConfig()->getTitle()->set('Generated Raport');
+
+        return $page;
     }
 }
