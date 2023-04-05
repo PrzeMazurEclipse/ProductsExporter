@@ -29,9 +29,7 @@ class CsvCreatorService
 
         $arrayOfProducts = $this->getFromArrayOfProductObjectsRequiredInformation($exportedProducts);
 
-        ($reprocess === false) ?
-            $currentExportName = self::PATH.self::FILE_NAME.$this->setDateForCurrentExport().self::EXTENSION :
-            $currentExportName = self::PATH.$reprocess.'_'.self::FILE_NAME.$this->setDateForCurrentExport().self::EXTENSION;
+        $currentExportName = $this->setNameForExportFile($reprocess);
 
         $csvFile = fopen($currentExportName, 'w+');
 
@@ -77,5 +75,17 @@ class CsvCreatorService
     private function setDateForCurrentExport(): string
     {
         return date('Y-m-d-h-i', time());
+    }
+
+    /**
+     * @param bool|string $reprocess
+     *
+     * @return string
+     */
+    private function setNameForExportFile(bool|string $reprocess): string
+    {
+        return ($reprocess === false) ?
+            self::PATH.self::FILE_NAME.$this->setDateForCurrentExport().self::EXTENSION :
+            self::PATH.$reprocess.'_'.self::FILE_NAME.$this->setDateForCurrentExport().self::EXTENSION;
     }
 }
