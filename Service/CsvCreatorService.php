@@ -17,6 +17,8 @@ class CsvCreatorService
     private array $csv_column_names = ['SKU', 'QUANTITY', 'ORDER_ID'];
 
     /**
+     * Creates a csv file from provided purchased products from orders.
+     *
      * @param array $exportedProducts
      * @param bool|string  $reprocess
      *
