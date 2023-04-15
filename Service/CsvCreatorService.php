@@ -88,6 +88,6 @@ class CsvCreatorService
     {
         return (empty($reprocess)) ?
             self::PATH.self::FILE_NAME.$this->setDateForCurrentExport().self::EXTENSION :
-            self::PATH.$reprocess[ReprocessEnum::NAME->value].'_'.$reprocess[ReprocessEnum::ID->value].self::EXTENSION;
+            self::PATH.$reprocess[ReprocessEnum::NAME->value].'_'.$reprocess[ReprocessEnum::ORIGINAL_RAPORT_ID->value].self::EXTENSION;
     }
 }
