@@ -18,6 +18,7 @@ class Download extends Action implements HttpGetActionInterface
 {
     private const DOWNLOAD_PATH = 'exportedProducts/';
     private const EXTENSION = '.csv';
+
     private string $errorMessage;
 
     /**
@@ -52,7 +53,6 @@ class Download extends Action implements HttpGetActionInterface
 
             return $resultPage;
         }
-        return true;
     }
 
     /**
@@ -85,7 +85,12 @@ class Download extends Action implements HttpGetActionInterface
     private function downloadFile(bool $ifReprocessedShouldBeDownloaded): bool
     {
         $title =  $this->getRequest()->getParam('title');
-        $absoluteFilePath = self::DOWNLOAD_PATH.$title.self::EXTENSION;
+        $id = $this->getRequest()->getParam('id');
+
+        ($ifReprocessedShouldBeDownloaded) ?
+            $absoluteFilePath = self::DOWNLOAD_PATH.'reprocess_'.$id.self::EXTENSION :
+            $absoluteFilePath = self::DOWNLOAD_PATH.$title.self::EXTENSION;
+
         try{
             if(!file_exists($absoluteFilePath)) {
                 $this->errorMessage = "File that you want to download does not exist. Please download reprocessed one";
