@@ -9,7 +9,7 @@ class ProductService
     /**
      * @param OrderService $orderService
      */
-    public function __construct(private OrderService $orderService)
+    public function __construct(private readonly OrderService $orderService)
     {
     }
 
