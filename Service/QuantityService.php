@@ -22,7 +22,6 @@ class QuantityService
      */
     public function getOrdersQuantityToExport(): string
     {
-        $quantity = $this->scopeConfig->getValue('yellowcard/general/quantity');
-        return $quantity;
+        return $this->scopeConfig->getValue('yellowcard/general/quantity');
     }
 }
