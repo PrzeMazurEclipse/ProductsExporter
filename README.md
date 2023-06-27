@@ -1,9 +1,17 @@
-raw notates for now : 
+# Installation Guide : 
 
-you have to create in your pub path new folder named : 
+## 1. Clone repository to app/code/YellowCard folder.
 
-exportedProducts
+## 2. You have to create in your /pub path new folder named : 
+
+### "exportedProducts"
 
 ![img.png](img.png)
 
-in this folder will be stored all exported files with purchased products
+#### in this folder will be stored all exported files with purchased products.
+
+## 3. Turn on the module, generate classes, upgrade database, and clear the cache
+ * bin/magento module:enable YellowCard_ProductsExporter
+ * bin/magento setup:di:compile
+ * bin/magento setup:upgrade
+ * bin/magento cache:clear
